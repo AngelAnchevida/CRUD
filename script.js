@@ -30,6 +30,8 @@ var app = new function()
         if(game)
         {
             this.games.push(game.trim())
+            localStorage.setItem('Juegos', JSON.stringify(this.games));
+
             el.value = '';
             this.FetchAll();
         }
@@ -49,6 +51,7 @@ var app = new function()
             if(game)
             {
                 self.games.splice(item, 1, game.trim());
+                localStorage.setItem('Juegos' , JSON.stringify(self.games));
 
                 self.FetchAll();
 
@@ -60,6 +63,7 @@ var app = new function()
     this.Delete = function(item)
     {
         this.games.splice(item, 1);
+        localStorage.setItem('Juegos', JSON.stringify(this.games));
         this.FetchAll();
     };
 
@@ -81,6 +85,18 @@ var app = new function()
             el.innerHTML = 'No. ' + name;
         }
     };
+
+    this.Storage = function()
+    {
+        var x = JSON.parse(localStorage.getItem('Juegos'));
+        if(x !== null)
+        {
+            this.games = x;
+            this.FetchAll();
+        }
+    };
+    this.Storage();
+
 }
 
 
